@@ -31,9 +31,9 @@ const Header = () => {
         }}
       >
         {navigation_link.map((el, key) => (
-          <NavLink key={key} to={`/${el}`}>
+          <NavLink key={key} to={el.path}>
             <p style={{ fontSize: '16px', textTransform: 'capitalize' }}>
-              {el}
+              {el.name}
             </p>
           </NavLink>
         ))}
@@ -47,6 +47,10 @@ const Header = () => {
   )
 }
 
-const navigation_link = ['history', 'transaction', 'notes']
+const navigation_link = [
+  { name: 'history', path: '/' },
+  { name: 'transaction', path: '/transaction' },
+  { name: 'notes', path: '/notes' },
+]
 
 export default Header

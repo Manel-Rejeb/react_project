@@ -3,22 +3,27 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter as Routage, Routes, Route } from 'react-router-dom'
 
 import Auth from './pages/Auth'
-import Transactions from './pages/Transactions'
 import Notes from './pages/Notes'
+import History from './pages/History'
+import Transactions from './pages/Transactions'
 
 import Header from './components/navbar/Header'
+import DataProvider from './context/DataProvider'
 
 function App() {
   return (
     <ChakraProvider>
-      <Routage>
-        <Header />
-        <Routes>
-          <Route path={'notes'} element={<Notes />} />
-          <Route path={'/transaction'} element={<Transactions />} />
-          <Route path={'/auth'} element={<Auth />} />
-        </Routes>
-      </Routage>
+      <DataProvider>
+        <Routage>
+          <Header />
+          <Routes>
+            <Route path={'/'} element={<History />} />
+            <Route path={'notes'} element={<Notes />} />
+            <Route path={'/transaction'} element={<Transactions />} />
+            <Route path={'/auth'} element={<Auth />} />
+          </Routes>
+        </Routage>
+      </DataProvider>
     </ChakraProvider>
   )
 }

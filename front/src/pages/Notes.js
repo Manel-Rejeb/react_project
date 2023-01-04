@@ -1,16 +1,62 @@
-import React from 'react'
-import { Button, Input, Textarea, Container } from '@chakra-ui/react'
+import React, { useState } from 'react'
+import { __data } from '../context/DataProvider'
+
+import NoteCard from '../components/note-card/NoteCard'
+
+import { Button, Input, Textarea, Container, Grid } from '@chakra-ui/react'
 
 const Notes = () => {
+  const { notes, storeNotes, deleteNote } = __data()
+
+  const [note, setNote] = useState({
+    note_title: '',
+    note_amount: 0,
+    note_description: '',
+  })
+
+  const handleChange = (binding, event) => {
+    setNote({ ...note, [binding]: event })
+  }
+
   return (
-    <Container>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <Input placeholder={'transaction name'} />
-        <Input placeholder={'transaction amount'} />
-        <Textarea placeholder={'transcation description'} />
-        <Button colorScheme='blue'>add transaction</Button>
-      </div>
-    </Container>
+    <div>
+      <Container>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <Input
+            placeholder={'transaction name'}
+            onChange={(e) => handleChange('note_title', e.target.value)}
+          />
+          <Input
+            placeholder={'transaction amount'}
+            onChange={(e) => handleChange('note_amount', e.target.value)}
+          />
+          <Textarea
+            placeholder={'transcation description'}
+            onChange={(e) => handleChange('note_description', e.target.value)}
+          />
+          <Button colorScheme='blue' onClick={() => storeNotes(note)}>
+            Add Note
+          </Button>
+        </div>
+      </Container>
+
+      <Grid
+        templateColumns='repeat(5, 1fr)'
+        gap={6}
+        padding={16}
+        style={{ marginTop: '75px' }}
+      >
+        {notes &&
+          notes.length > 0 &&
+          notes.map((el) => (
+            <NoteCard
+              key={el._id}
+              note={el}
+              deleteNote={() => deleteNote(el._id)}
+            />
+          ))}
+      </Grid>
+    </div>
   )
 }
 
