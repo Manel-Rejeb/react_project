@@ -1,15 +1,28 @@
 import React from 'react'
 import { __data } from '../context/DataProvider'
+import HistoryCard from '../components/history-card/HistoryCard'
+import { Grid, GridItem } from '@chakra-ui/react'
+
+import { Doughnut } from 'react-chartjs-2'
 
 const History = () => {
-  const { transactions } = __data()
+  const { transactions, deleteTransactions } = __data()
 
   return (
-    <div>
-      {transactions &&
-        transactions.length > 0 &&
-        transactions.map((el) => <p key={el._id}>{el.transaction_name}</p>)}
-    </div>
+    <Grid templateColumns={'repeat(2,auto)'}>
+      <GridItem>{/* <Doughnut data={data} /> */}</GridItem>
+      <GridItem>
+        {transactions &&
+          transactions.length > 0 &&
+          transactions.map((el) => (
+            <HistoryCard
+              key={el._id}
+              transaction={el}
+              deleteT={() => deleteTransactions(el._id)}
+            />
+          ))}
+      </GridItem>
+    </Grid>
   )
 }
 

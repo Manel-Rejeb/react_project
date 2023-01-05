@@ -9,6 +9,7 @@ import Transactions from './pages/Transactions'
 
 import Header from './components/navbar/Header'
 import DataProvider from './context/DataProvider'
+import EditTransactions from './pages/EditTransaction'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path={'/'} element={<History />} />
             <Route path={'notes'} element={<Notes />} />
             <Route path={'/transaction'} element={<Transactions />} />
+            <Route path={'/transaction/:id'} element={<EditTransactions />} />
             <Route path={'/auth'} element={<Auth />} />
           </Routes>
         </Routage>

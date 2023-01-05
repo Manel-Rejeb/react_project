@@ -1,0 +1,24 @@
+.history-card-container {
+  gap: 1rem;
+  display: grid;
+  margin-bottom: 14px;
+  grid-template-columns: auto 1fr 1fr 1fr;
+  background: #e9e9f9;
+}
+
+.indicator {
+  width: 10px;
+  height: 100%;
+}
+
+.color-red {
+  background: #ee0000;
+}
+
+.color-green {
+  background: #00ff00;
+}
+
+.color-yellow {
+  background: #ffff00;
+}

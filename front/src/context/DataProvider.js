@@ -7,6 +7,7 @@ export const __data = () => useContext(DataContext)
 export default function DataProvider({ children }) {
   const [notes, setNotes] = useState([])
   const [transactions, setTransactions] = useState([])
+  const [oneTransaction, setOneTransaction] = useState({})
 
   /**
    * notes
@@ -30,6 +31,22 @@ export default function DataProvider({ children }) {
       .then((res) => setTransactions([res.data, ...transactions]))
   }
 
+  const getOneTransaction = (id) => {
+    fetcher.get(`/transaction/${id}`).then((res) => setOneTransaction(res.data))
+  }
+
+  const updateTransaction = (transaction, id) => {
+    fetcher.put(`/transaction/${id}`, transaction).then(() => {
+      fetcher.get('/transaction').then((res) => setTransactions(res.data))
+    })
+  }
+
+  const deleteTransactions = (id) => {
+    fetcher
+      .delete(`/transaction/${id}`)
+      .then(() => setTransactions(transactions.filter((el) => el._id !== id)))
+  }
+
   useEffect(() => {
     fetcher.get('/notes').then((res) => setNotes(res.data))
     fetcher.get('/transaction').then((res) => setTransactions(res.data))
@@ -37,7 +54,17 @@ export default function DataProvider({ children }) {
 
   return (
     <DataContext.Provider
-      value={{ notes, transactions, storeNotes, deleteNote, storeTransactions }}
+      value={{
+        notes,
+        transactions,
+        oneTransaction,
+        storeNotes,
+        deleteNote,
+        storeTransactions,
+        deleteTransactions,
+        getOneTransaction,
+        updateTransaction,
+      }}
     >
       {children}
     </DataContext.Provider>
