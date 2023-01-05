@@ -3,8 +3,11 @@ import React from 'react'
 import { Button } from '@chakra-ui/react'
 import { NavLink } from 'react-router-dom'
 import { BsShield } from 'react-icons/bs'
+import { __auth } from '../../context/AuthProvider'
 
 const Header = () => {
+  const { logout } = __auth()
+
   return (
     <div
       style={{
@@ -38,11 +41,17 @@ const Header = () => {
           </NavLink>
         ))}
       </div>
-      <div>
-        <NavLink to={'/auth'}>
-          <Button leftIcon={<BsShield />}>Login</Button>
-        </NavLink>
-      </div>
+      {localStorage.getItem('logged') === 'false' ? (
+        <div>
+          <NavLink to={'/auth'}>
+            <Button leftIcon={<BsShield />}>Login</Button>
+          </NavLink>
+        </div>
+      ) : (
+        <div>
+          <Button onClick={logout}>logout</Button>
+        </div>
+      )}
     </div>
   )
 }

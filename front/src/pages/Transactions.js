@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Select, Input, Textarea, Container } from '@chakra-ui/react'
 import { __data } from '../context/DataProvider'
 
@@ -20,6 +20,12 @@ const Transactions = () => {
   }
 
   const option = ['Investment', 'Expense', 'Savings']
+
+  useEffect(() => {
+    if (localStorage.getItem('logged') === 'false') {
+      navigate('/auth')
+    }
+  })
 
   return (
     <Container>

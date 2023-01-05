@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { __data } from '../context/DataProvider'
 
 import NoteCard from '../components/note-card/NoteCard'
 
 import { Button, Input, Textarea, Container, Grid } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
 
 const Notes = () => {
+  const navigate = useNavigate()
   const { notes, storeNotes, deleteNote } = __data()
 
   const [note, setNote] = useState({
@@ -17,6 +19,12 @@ const Notes = () => {
   const handleChange = (binding, event) => {
     setNote({ ...note, [binding]: event })
   }
+
+  useEffect(() => {
+    if (localStorage.getItem('logged') === 'false') {
+      navigate('/auth')
+    }
+  })
 
   return (
     <div>

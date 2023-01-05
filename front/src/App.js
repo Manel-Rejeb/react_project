@@ -10,22 +10,25 @@ import Transactions from './pages/Transactions'
 import Header from './components/navbar/Header'
 import DataProvider from './context/DataProvider'
 import EditTransactions from './pages/EditTransaction'
+import AuthProvider from './context/AuthProvider'
 
 function App() {
   return (
     <ChakraProvider>
-      <DataProvider>
-        <Routage>
-          <Header />
-          <Routes>
-            <Route path={'/'} element={<History />} />
-            <Route path={'notes'} element={<Notes />} />
-            <Route path={'/transaction'} element={<Transactions />} />
-            <Route path={'/transaction/:id'} element={<EditTransactions />} />
-            <Route path={'/auth'} element={<Auth />} />
-          </Routes>
-        </Routage>
-      </DataProvider>
+      <Routage>
+        <AuthProvider>
+          <DataProvider>
+            <Header />
+            <Routes>
+              <Route path={'/'} element={<History />} />
+              <Route path={'notes'} element={<Notes />} />
+              <Route path={'/transaction'} element={<Transactions />} />
+              <Route path={'/transaction/:id'} element={<EditTransactions />} />
+              <Route path={'/auth'} element={<Auth />} />
+            </Routes>
+          </DataProvider>
+        </AuthProvider>
+      </Routage>
     </ChakraProvider>
   )
 }

@@ -19,6 +19,12 @@ const EditTransactions = () => {
     getOneTransaction(id)
   }, [])
 
+  useEffect(() => {
+    if (localStorage.getItem('logged') === 'false') {
+      navigate('/auth')
+    }
+  })
+
   const option = ['Investment', 'Expense', 'Savings']
 
   return (

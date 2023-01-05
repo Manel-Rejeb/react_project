@@ -6,9 +6,7 @@ exports.index = async (_, res) => {
 }
 
 exports.find = async (req, res) => {
-  await NoteModel.findById(req._id, (err, doc) => {
-    res.status(204).send(doc)
-  })
+  await NoteModel.findOne(req.params._id).then((result) => res.send(result))
 }
 
 exports.store = async (req, res) => {
